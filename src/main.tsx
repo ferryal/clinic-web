@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from '@/components/theme-provider'
 import router from '@/router'
-import { ToastProvider } from '@/components/ui/toasts'
+import { ToastProvider } from '@/components/ui/toast'
 import ReactQuery from '@/lib/ReactQuery'
 import '@/index.css'
 
