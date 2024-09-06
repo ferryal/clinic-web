@@ -1,37 +1,12 @@
 import { ColumnDef } from '@tanstack/react-table'
-import dayjs from 'dayjs';
+import dayjs from 'dayjs'
 
-import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from './data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
 
 import { Anamnesis } from '../data/schema'
 
 export const columns: ColumnDef<Anamnesis>[] = [
-  {
-    id: 'select',
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && 'indeterminate')
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label='Select all'
-        className='translate-y-[2px]'
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label='Select row'
-        className='translate-y-[2px]'
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
   {
     accessorKey: 'title',
     header: ({ column }) => (
@@ -71,14 +46,13 @@ export const columns: ColumnDef<Anamnesis>[] = [
       <DataTableColumnHeader column={column} title='Created Date' />
     ),
     cell: ({ row }) => {
-      const value = row.getValue('created_date') as string;
-        const date = new Date(value);
-
+      const value = row.getValue('created_date') as string
+      const date = new Date(value)
 
       return (
         <div className='flex space-x-2'>
           <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-            { dayjs(date).format('D MMMM YYYY')}
+            {dayjs(date).format('D MMMM YYYY')}
           </span>
         </div>
       )

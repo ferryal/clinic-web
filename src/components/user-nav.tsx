@@ -1,53 +1,59 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/custom/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+import { useState } from 'react'
 
 export function UserNav() {
+  const [isOpen, setIsOpen] = useState(false)
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant='ghost' className='relative h-8 w-8 rounded-full'>
-          <Avatar className='h-8 w-8'>
-            <AvatarImage src='/avatars/01.png' alt='@shadcn' />
-            <AvatarFallback>SA</AvatarFallback>
-          </Avatar>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className='w-56' align='end' forceMount>
-        <DropdownMenuLabel className='font-normal'>
-          <div className='flex flex-col space-y-1'>
-            <p className='text-sm font-medium leading-none'>Superadmin</p>
-            <p className='text-xs leading-none text-muted-foreground'>
-              ferryalmfajar@gmail.com
-            </p>
+    <div className='relative'>
+      <Button
+        id='dropdownInformationButton'
+        variant='default'
+        className='relative h-8 w-8 rounded-full border-gray-200'
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        FF
+      </Button>
+
+      {isOpen && (
+        <div
+          id='dropdownInformation'
+          className='absolute right-0 z-10 w-44 divide-y divide-gray-100 rounded-lg bg-white shadow dark:divide-gray-600 dark:bg-gray-700'
+        >
+          <div className='px-4 py-3 text-sm text-gray-900 dark:text-white'>
+            <div>Superadmin</div>
+            <div className='truncate font-medium'>ferryalmfajar@gmail.com</div>
           </div>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            Profile
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Settings
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Log out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <ul
+            className='py-2 text-sm text-gray-700 dark:text-gray-200'
+            aria-labelledby='dropdownInformationButton'
+          >
+            <li>
+              <a
+                href='#'
+                className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
+              >
+                Profile
+              </a>
+            </li>
+            <li>
+              <a
+                href='#'
+                className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
+              >
+                Settings
+              </a>
+            </li>
+          </ul>
+          <div className='py-2'>
+            <a
+              href='#'
+              className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white'
+            >
+              Log out
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
   )
 }
