@@ -1,12 +1,5 @@
 import { Link } from 'react-router-dom'
 import { buttonVariants } from './custom/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-} from './ui/dropdown-menu'
 import { cn } from '@/lib/utils'
 import useCheckActiveNav from '@/hooks/use-check-active-nav'
 import { SideLink } from '@/data/sidelinks'
@@ -25,15 +18,6 @@ export default function Nav({
 }: NavProps) {
   const renderLink = ({ sub, ...rest }: SideLink) => {
     const key = `${rest.title}-${rest.href}`
-    if (isCollapsed && sub)
-      return (
-        <NavLinkIconDropdown
-          {...rest}
-          sub={sub}
-          key={key}
-          closeNav={closeNav}
-        />
-      )
 
     return <NavLink {...rest} key={key} closeNav={closeNav} />
   }
@@ -88,31 +72,5 @@ function NavLink({
         </div>
       )}
     </Link>
-  )
-}
-
-function NavLinkIconDropdown({ title, label, sub }: NavLinkProps) {
-  const { checkActiveNav } = useCheckActiveNav()
-
-  return (
-    <DropdownMenu>
-      <DropdownMenuContent side='right' align='start' sideOffset={4}>
-        <DropdownMenuLabel>
-          {title} {label ? `(${label})` : ''}
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        {sub!.map(({ title, icon, label, href }) => (
-          <DropdownMenuItem key={`${title}-${href}`} asChild>
-            <Link
-              to={href}
-              className={`${checkActiveNav(href) ? 'bg-secondary' : ''}`}
-            >
-              {icon} <span className='ml-2 max-w-52 text-wrap'>{title}</span>
-              {label && <span className='ml-auto text-xs'>{label}</span>}
-            </Link>
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
   )
 }
