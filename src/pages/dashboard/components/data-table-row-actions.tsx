@@ -1,28 +1,25 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { Row } from '@tanstack/react-table'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Button } from '@/components/custom/button'
 import { useEffect, useRef, useState } from 'react'
 import useRemoveAnamnesis from '@/apis/mutations/useRemoveAnamnesis'
 import useAnamnesis from '@/apis/queries/useAnamnesis'
 
-interface DataTableRowActionsProps<TData> {
-  row: Row<TData>
+interface DataTableRowActionsProps {
+  row: Row<any>
 }
 
-export function DataTableRowActions<TData>({
-  row,
-}: DataTableRowActionsProps<TData>) {
+export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
-  const navigate = useNavigate()
 
   const { mutate, data } = useRemoveAnamnesis()
   const { refetch } = useAnamnesis()
 
   const onDeleteAnamnesis = () => {
     const payload = {
-      id: String(row?.index + 1),
+      id: String(row?.original?.id),
     }
     mutate(payload)
   }
@@ -71,22 +68,20 @@ export function DataTableRowActions<TData>({
             aria-labelledby='dropdownDividerButton'
           >
             <li>
-              <a
-                href='#'
+              <Link
+                to={`/view/anamnesis/${row?.original?.id}`}
                 className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
-                onClick={() => navigate(`/view/anamnesis/${row?.index + 1}`)}
               >
                 View
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href='#'
+              <Link
+                to={`/edit/anamnesis/${row?.original?.id}`}
                 className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
-                onClick={() => navigate(`/edit/anamnesis/${row?.index + 1}`)}
               >
                 Edit
-              </a>
+              </Link>
             </li>
           </ul>
           <div>

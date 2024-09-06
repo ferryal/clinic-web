@@ -7,10 +7,11 @@ interface GetAnamnesisDetailPayload {
 
 const fetchAnamnesisDetail = async ({ id }: GetAnamnesisDetailPayload) => {
   try {
-    const { data } = await axios.get(
+    const response = await axios.get(
       `https://66d6f347006bfbe2e64f38bc.mockapi.io/noscai/api/v1/anamnesis/${id}`
     )
-    return data
+
+    return response
   } catch (error) {
     console.error('Request failed:', error)
     throw error
